@@ -1,0 +1,277 @@
+===============================================================================
+РАЗБИЕНИЕ ВВЕДЕННОГО ТЕКСТА НА ОТДЕЛЬНЫЕ СЛОВА И ВЫВОД ИХ НА ЭКРАН
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int main() {
+    vector <string> words;
+    string query;
+    getline(cin, query);
+    string word;
+    for (char c : query) {
+        if (c == ' ') {
+            words.push_back(word);
+            word = ""s;
+        } else {
+            word += c;
+        }
+    }
+    words.push_back(word);
+    for (string word : words) {
+        cout << '[' << word << ']' << endl;
+    } 
+}
+
+===============================================================================
+Разбиение текста на слова методом
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+
+vector<string> SplitIntoWords(string text) {
+    vector<string> words;
+    string word;
+    for (char c : text) {
+        if (c == ' ') {
+            if (!word.empty()) {
+                words.push_back(word);
+                word.clear();
+            }
+        } else {
+            word += c;
+        }
+    }
+    if (!word.empty()) {
+        words.push_back(word);
+   }
+    return words;
+}
+
+int main() {
+		string query;
+		getline(cin, query);
+        vector <string> array = SplitIntoWords(query);
+}
+
+===============================================================================
+Расчет факториала числа
+int Factorial(int x) {
+    int factorial = 1;
+    if (x < 0) factorial = 1;
+    else {
+        for (int i = 1; i <= x; i++) {
+            factorial = factorial * i;
+        }
+    }
+    return factorial;
+}
+
+===============================================================================
+// ВЫЗОВ ФУНКЦИИ ДЛЯ ПРОВЕТКИ ТЕКСТА НА ПОЛИНДРОМ
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// определяет, будет ли строка s палиндромом
+bool IsPalindrome(string s) {
+    for (int i = 0; i < s.size() / 2; ++i) {
+        if (s[i] != s[s.size() - i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+vector<string> PalindromeFilter(vector<string> words, int min_length) {
+    vector<string> arr;
+    for (int i = 0; i < words.size(); i++) {
+        if (IsPalindrome(words[i])) {
+            if (words[i].size() >= min_length) {
+                arr.push_back(words[i]);
+            }
+        }
+    }
+    return arr;
+}
+===============================================================================
+ПОИСК СЛОВА В ТЕКСТЕ
+vector<string> words;
+string word_to_find;
+// ...
+bool found = false;
+for (string word : words) {
+    if (word == word_to_find) {
+        found = true;
+    }
+} 
+
+МЕТОД SET
+set<string> words;
+string word_to_find;
+// ...
+// Метод count возвращает количество вхождений элемента внутри множества.
+bool found = words.count(word_to_find) != 0; 
+===============================================================================
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+void PrintSet(set<string> s) {
+    for (string x : s) {
+        cout << x << endl;
+    }
+}
+
+int main() {
+    set<string> animals = {"cat"s, "dog"s, "aardvark"s, "dog"s, "sheep"s, "ape"s, "sheep"s};
+    PrintSet(animals);
+}
+
+aardvark
+ape
+cat
+dog
+sheep 
+ИМЕНА ЖИВОТНЫХ ПРИ ВЫВОДЕ УПОРЯДОЧЕНЫ ПО ВОЗРАСТАНИЮ И ТОЛЬКО ОДИН РАЗ
+
+Чтобы проверить множество на пустоту, примените метод empty(). 
+Он возвращает значение типа bool:
+
+//...
+int main() {
+    set<string> animals = {"cat"s, "dog"s, "aardvark"s, "dog"s, "sheep"s, "ape"s, "sheep"s};
+    if (!animals.empty()) {
+        cout << "There are some animals in the set,"s << endl;
+        cout << animals.size() << " different animals, to be exact."s;
+    }
+} 
+
+Для добавления новых элементов внутрь множества используйте метод insert(). 
+После вставки упорядоченность элементов множества сохранится:
+// ...
+
+int main() {
+    set<string> animals = {"cat"s, "dog"s, "aardvark"s, "dog"s, "sheep"s, "ape"s, "sheep"s};
+    PrintSet(animals);
+    cout << endl;
+    animals.insert("another dog"s);
+    animals.insert("cat"s);
+    animals.insert("penguin"s);
+    PrintSet(animals);
+} 
+
+Чтобы удалить элементы из set, вызовите метод erase():
+
+// ...
+
+int main() {
+    set<string> animals = {"cat"s, "dog"s, "aardvark"s, "dog"s, "sheep"s, "ape"s, "sheep"s};
+    PrintSet(animals);
+    cout << endl << "Some animals are gone!"s << endl << endl;
+    animals.erase("cat"s);
+    animals.erase("dog"s);
+    animals.erase("ape"s);
+
+    // Удаление отсутствующего элемента не делает ничего
+    animals.erase("mouse"s);
+
+    PrintSet(animals);
+} 
+===============================================================================
+ПОСЛЕДОВАТЕЛЬНЫЙ ВВОД ТЕКСТА В МАССИВ SET
+#include <iostream>
+#include <string>
+#include <set>
+
+using namespace std;
+
+int main() {
+    int N = 0;
+    string list;
+    set<string> text;    
+    cin >> N;
+    for (int i = 0; i<N; i++) {
+        cin >> list;
+        text.insert(list);
+    }
+    cout << text.size();
+    return 0;
+}
+
+===============================================================================
+СРАВНЕНИЕ
+
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+int main() {
+    set<string> mammals = {"tiger"s, "elephant"s, "pig"s};
+    set<string> other_mammals = {"pig"s, "elephant"s, "tiger"s, "pig"s};
+
+    cout << boolalpha << (mammals == other_mammals) << endl;
+
+    return 0;
+} 
+
+Подойдёт метод count(). Он считает, сколько заданных элементов есть во множестве:
+
+#include <iostream>
+#include <set>
+using namespace std;
+
+void CheckBirdPresence(set<string> birds, string bird_name) {
+    if (birds.count(bird_name) > 0) {
+        // Птица всё ещё здесь
+        cout << "The "s << bird_name << " is still here."s;
+    } else {
+        // Птица улетела
+        cout << "The "s <<  bird_name << " has flown away!"s;
+    }
+}
+
+int main() {
+    // ласточка, орёл, сова, ласточка, скворец
+    set<string> birds = {"swallow"s, "eagle"s, "owl"s, "swallow"s, "starling"s};
+
+    cout << birds.count("swallow"s) << endl;
+    CheckBirdPresence(birds, "swallow"s);
+    cout << endl;
+    birds.erase("swallow"s);
+    cout << birds.count("swallow"s) << endl;
+    CheckBirdPresence(birds, "swallow"s);
+
+    return 0;
+} 
+
+1
+The swallow is still here.
+0
+The swallow has flown away! 
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
+===============================================================================
